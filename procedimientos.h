@@ -12,7 +12,12 @@ extern int i, j, k;
 
 void registroTemporal();
 void valorInventarioSucursal();
-
+void prodMasCaro();
+void prodMasBarato();
+void precioPromedioSucursales();
+void buscarProducto();
+void venderProductos();
+void reabastecerStock();
 
 
 

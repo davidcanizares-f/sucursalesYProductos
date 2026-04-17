@@ -10,6 +10,8 @@ extern int i, j, k;
 
 
 int menuTienda();
+int elegirSucursal();
+
 
 
 
