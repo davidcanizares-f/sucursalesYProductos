@@ -18,6 +18,8 @@ void precioPromedioSucursales();
 void buscarProducto();
 void venderProductos();
 void reabastecerStock();
+void verVentasGanancias();
+
 
 
 
