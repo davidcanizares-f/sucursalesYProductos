@@ -262,12 +262,18 @@ void registro(){
                 switch(k){
                     case 0:
                         printf("- Stock: ");
-                        scanf("%f", &matriz[i][j][k]);
+                        while(scanf("%f", &matriz[i][j][k]) != 1 || matriz[i][j][k] < 0){
+                            while(getchar() != '\n');
+                            printf("[ERROR]: Ingrese un valor apropiado: ");
+                        }
                         break;
 
                     case 1:
                         printf("- Precio: ");
-                        scanf("%f", &matriz[i][j][k]);
+                        while(scanf("%f", &matriz[i][j][k]) != 1 || matriz[i][j][k] < 0){
+                            while(getchar() != '\n');
+                            printf("[ERROR]: Ingrese un valor apropiado: ");
+                        }
                         break;
                 }
                 
