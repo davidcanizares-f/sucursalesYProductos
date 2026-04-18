@@ -5,6 +5,7 @@
 extern float matriz[sucursales][prods][atributos];
 extern char nombresProds[10][30];
 extern char nombresSucursal[3][40];
+extern float ventas[sucursales][prods][atributos];
 extern int i, j, k;
 
 

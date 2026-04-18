@@ -17,7 +17,11 @@ bool encontrado;
 int prodsVender = 0;
 int stock;
 int prodsReabastecer = 0;
-int ventas[3][10];
+float numeroVentasXSucursal=0;
+float gananciaVentasXSucursal=0;
+float numeroVentasTotales=0;
+float gananciaVentasTotales=0;
+
 
 
 
@@ -170,9 +174,10 @@ void venderProductos(int opcionProd, int opcionSucursal){
     scanf("%d", &prodsVender);
     stock -= prodsVender;
     matriz[opcionSucursal-1][opcionProd-1][0] = stock;
+    ventas[opcionSucursal-1][opcionProd-1][0]+=prodsVender;
+    ventas[opcionSucursal-1][opcionProd-1][1]+=(prodsVender*matriz[opcionSucursal-1][opcionProd-1][1]);
     printf("%d UNIDADES VENDIDAS DE %s\n", prodsVender, nombresProds[opcionProd-1]);
     printf("Stock actual: %d\n", stock);
-    ventas[opcionSucursal-1][opcionProd-1] += prodsVender;
 }
 
 void reabastecerStock(int opcionProd, int opcionSucursal){
@@ -180,7 +185,16 @@ void reabastecerStock(int opcionProd, int opcionSucursal){
     stock = matriz[opcionSucursal-1][opcionProd-1][0];
     printf("Stock actual: %d\n", stock);
     printf("Cantidad a reabastecer: ");
-    scanf("%d", &prodsReabastecer);
+    while(scanf("%d", &prodsReabastecer) != 1){
+        printf("[ERROR]: Vuelva a introducir el stock a reabastecer: \n");
+        scanf("%d", &prodsReabastecer);
+        while(getchar() != '\n');
+    }
+    while(prodsReabastecer<0){
+        printf("[ERROR]: El stock no puede ser negativo. Introduzca un stock válido \n");
+        scanf("%d", &prodsReabastecer);
+        while(getchar() != '\n');
+    }
     stock += prodsReabastecer;
     matriz[opcionSucursal-1][opcionProd-1][0] = stock;
     printf("%d UNIDADES REABASTECIDAS DE %s\n", prodsReabastecer, nombresProds[opcionProd-1]);
@@ -192,12 +206,19 @@ void verVentasGanancias(){
     for(i=0; i<sucursales; i++){
         printf(">>>>> %s <<<<<\n", nombresSucursal[i]);
         for(j=0; j<prods; j++){
-            printf("-- %s: ", nombresProds[j]);
-            printf("%d\n", ventas[i][j]);
-            
+            printf("-- %s:\n ", nombresProds[j]);
+            printf("Stock vendido: %.0f\n", ventas[i][j][0]);
+            printf("Ganancia obtenida: $%.2f\n", ventas[i][j][1]);
+            numeroVentasXSucursal+=ventas[i][j][0];
+            gananciaVentasXSucursal+=ventas[i][j][1];
         }
+        printf("\nNumero de productos vendidos de la sucursal: %.0f\n", numeroVentasXSucursal);
+        printf("\nGanancia obtenida de la sucursal: $%.2f\n", gananciaVentasXSucursal);
+        numeroVentasTotales+=numeroVentasXSucursal;
+        gananciaVentasTotales+=gananciaVentasXSucursal;
     }    
-
+    printf("\nNúmero de productos vendidos en total: %.0f\n", numeroVentasTotales);
+    printf("\nGanancia total obtenida: $%.2f\n", gananciaVentasTotales);
 }
 
 
