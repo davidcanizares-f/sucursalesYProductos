@@ -10,7 +10,7 @@ extern int i, j, k;
 
 
 
-
+void registro();
 void mostrarMatrizEstablecida();
 void valorInventarioSucursal();
 void prodMasCaro();
@@ -20,4 +20,3 @@ void buscarProducto();
 void venderProductos();
 void reabastecerStock();
 void verVentasGanancias();
-void registro();

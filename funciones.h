@@ -8,7 +8,7 @@ extern char nombresSucursal[3][40];
 extern int i, j, k;
 
 
-
+int menuInicial();
 int menuTienda();
 int elegirSucursal();
 int elegirProducto();

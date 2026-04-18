@@ -21,29 +21,18 @@ float numeroVentasXSucursal=0;
 float gananciaVentasXSucursal=0;
 float numeroVentasTotales=0;
 float gananciaVentasTotales=0;
-int opcionInicial=0;
 
 
 
-int menuInicial(){
-    printf("\n======== ORBSTORE =======\n");
-    printf("1. Usar valores de inventario ya establecidos.\n");
-    printf("2. Ingresar datos de stock y precios manualmente.\n");
-    printf("----------------------\n");
-    printf("Ingrese una opcion: ");
 
-    while(scanf("%d", &opcionInicial) != 1 || opcionInicial < 1 || opcionInicial > 2){
-        while(getchar() != '\n');
-        printf("[ERROR]: Ingrese un numero entre 1 y 2\n");
-    }
-    return opcionInicial;
-}
+
 
 void seteoMatriz(int opcionInicial){
     switch(opcionInicial){
         case 1:
             printf("Puede continuar!\n");
-            printf("========== VALORES ESTABLECIDOS ========\n");
+            printf("\n========== VALORES ESTABLECIDOS ========\n");
+            printf("\n");
             mostrarMatrizEstablecida();
             break;
         case 2:
