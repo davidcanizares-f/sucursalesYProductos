@@ -166,8 +166,16 @@ void venderProductos(int opcionProd, int opcionSucursal){
     printf("\n========= VENDER PRODUCTOS ==========\n");
     stock = matriz[opcionSucursal-1][opcionProd-1][0];
     printf("Stock actual: %d\n", stock);
-    printf("Cantidad a vender: ");
-    scanf("%d", &prodsVender);
+
+    do { //Validacion para que el usuario no ingrese 0 ni valores negativos
+        printf("Cantidad a vender: ");
+        while(scanf("%d", &prodsVender) != 1){ while(getchar() != '\n'); }
+            if(prodsVender <= 0){
+                printf("[ERROR]: Debe ser un numero positivo.\n");
+            }else if(prodsVender > stock){
+                printf("[ERROR]: No hay suficiente stock (disponible: %d).\n", stock);}
+    } while(prodsVender <= 0 || prodsVender > stock);
+
     stock -= prodsVender;
     matriz[opcionSucursal-1][opcionProd-1][0] = stock;
     printf("%d UNIDADES VENDIDAS DE %s\n", prodsVender, nombresProds[opcionProd-1]);
@@ -180,7 +188,14 @@ void reabastecerStock(int opcionProd, int opcionSucursal){
     stock = matriz[opcionSucursal-1][opcionProd-1][0];
     printf("Stock actual: %d\n", stock);
     printf("Cantidad a reabastecer: ");
-    scanf("%d", &prodsReabastecer);
+    
+    do {
+        printf("Cantidad a reabastecer: ");
+        while(scanf("%d", &prodsReabastecer) != 1){ while(getchar() != '\n'); }
+        if(prodsReabastecer <= 0){
+            printf("[ERROR]: Debe ser un numero positivo.\n");}
+    } while(prodsReabastecer <= 0);
+
     stock += prodsReabastecer;
     matriz[opcionSucursal-1][opcionProd-1][0] = stock;
     printf("%d UNIDADES REABASTECIDAS DE %s\n", prodsReabastecer, nombresProds[opcionProd-1]);
