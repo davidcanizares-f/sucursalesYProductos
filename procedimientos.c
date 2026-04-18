@@ -2,6 +2,11 @@
 #include <stdbool.h>
 #include "procedimientos.h"
 #include <string.h>
+
+int prodsVender = 0;
+int stock;
+int prodsReabastecer = 0;
+int indice =0;
 float patrimonioXProd=0;
 float suma[3]={0};
 float promedio[3]={0};
@@ -9,19 +14,14 @@ float inventario=0;
 float patrimonioXSucursal[3]={0};
 float mayor = 0;
 float menor = 0;
-char nombreMayor[10][20]={0};
-float productoMasCaro=0;
-int indice =0;
-char buscado[20];
-bool encontrado;
-int prodsVender = 0;
-int stock;
-int prodsReabastecer = 0;
 float numeroVentasXSucursal=0;
 float gananciaVentasXSucursal=0;
 float numeroVentasTotales=0;
 float gananciaVentasTotales=0;
-
+float productoMasCaro=0;
+char nombreMayor[10][20]={0};
+char buscado[20];
+bool encontrado;
 
 
 
@@ -39,6 +39,39 @@ void seteoMatriz(int opcionInicial){
             registro();
             break;
     }
+}
+
+void registro(){
+    for(int i=0; i<sucursales; i++){
+        printf(">>>> Sucursal: %d || %s \n", i+1, nombresSucursal[i]);
+        for(int j=0; j<prods; j++){
+            printf("====== %s ======\n", nombresProds[j]);
+            for(int k=0; k<atributos; k++){
+                switch(k){
+                    case 0:
+                        printf("- Stock: ");
+                        while(scanf("%f", &matriz[i][j][k]) != 1 || matriz[i][j][k] < 0){
+                            while(getchar() != '\n');
+                            printf("[ERROR]: Ingrese un valor apropiado: ");
+                        }
+                        break;
+
+                    case 1:
+                        printf("- Precio: ");
+                        while(scanf("%f", &matriz[i][j][k]) != 1 || matriz[i][j][k] <= 0){
+                            while(getchar() != '\n');
+                            printf("[ERROR]: Ingrese un valor apropiado: ");
+                        }
+                        break;
+                }
+                
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+    printf("\n");
+
 }
 
 
@@ -114,7 +147,7 @@ void prodMasCaro(){
         }
 
         printf(">>>> %s\n", nombresSucursal[i]);
-        printf("%s : %.2f\n", nombresProds[indice], mayor);
+        printf("%s : $%.2f\n", nombresProds[indice], mayor);
     }
 }
 
@@ -241,41 +274,7 @@ void verVentasGanancias(){
 }
 
 
-void registro(){
 
-    for(int i=0; i<3; i++){
-        printf(">>>> Sucursal: %d || %s \n", i+1, nombresSucursal[i]);
-        for(int j=0; j<10; j++){
-            printf("====== %s ======\n", nombresProds[j]);
-            for(int k=0; k<2; k++){
-                switch(k){
-                    case 0:
-                        printf("- Stock: ");
-                        while(scanf("%f", &matriz[i][j][k]) != 1 || matriz[i][j][k] < 0){
-                            while(getchar() != '\n');
-                            printf("[ERROR]: Ingrese un valor apropiado: ");
-                        }
-                        break;
-
-                    case 1:
-                        printf("- Precio: ");
-                        while(scanf("%f", &matriz[i][j][k]) != 1 || matriz[i][j][k] < 0){
-                            while(getchar() != '\n');
-                            printf("[ERROR]: Ingrese un valor apropiado: ");
-                        }
-                        break;
-                }
-                
-            }
-            printf("\n");
-        }
-        printf("\n");
-    }
-    printf("\n");
-
-
-
-}
 
     /*for(int i=0; i<3; i++){
             printf(">>>> Sucursal: %d\n", i+1);

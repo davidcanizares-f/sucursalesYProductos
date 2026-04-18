@@ -9,7 +9,7 @@ Autores:
     -Jean Pierre Rosas
     -Derek Yépez
 
-============== SISTEMA DE CALIFICACIONES =============
+============== SISTEMA DE GESTIÓN DE INVENTARIOS =============
 */
 
 // INCLUSIÓN DE LIBRERÍAS Y ARCHIVOS CABECERA //
@@ -19,10 +19,12 @@ Autores:
 #include "procedimientos.c" //LIBRERÍA CON PROCEDIMIENTOS
 #include "funciones.c" //LIBRERÍA CON FUNCIONES
 
+//Definir constantes necesarias para el barrido de la matriz cubo.
 #define sucursales 3
 #define prods 10
 #define atributos 2
 
+//Matriz predefinida en caso de elección por parte del usuario.
 float matriz[sucursales][prods][atributos] = {
     { // Sucursal 1
         {50, 0.50},   // Pan
@@ -62,35 +64,47 @@ float matriz[sucursales][prods][atributos] = {
     }
 };
 
+//VARIABLES GLOBALES
 char nombresProds[10][30]={"Pan", "Sal", "Miel", "Cafe", "Atun", "Arroz", "Huevos", "Leche", "Pasta Dental", "Vino"};
 char nombresSucursal[3][40]={"NORTE", "CENTRO", "SUR"};
+float ventas[sucursales][prods][atributos];
 float patrimoniosPorSucursal[3]={0};
 int i, j, k;
-int opcionSucursalMain;
-int opcionAdministrarNegocio;
-int producto;
-int opcionInicialMain;
-float ventas[sucursales][prods][atributos];
 
 
+
+// ---------- PROTOTIPOS DE MODULARIZACIÓN -------
+// PROCEDIMIENTOS
+void seteoMatriz(int opcionInicial);
+void registro();
 void mostrarMatrizEstablecida();
-int menuTienda();
-void valorInventarioSucursal();
+void valorInventarioSucursal(float patrimonioXSucursal[3]);
 void prodMasCaro();
 void precioPromedioSucursales();
-void buscarProducto();
-int elegirSucursal();
-int elegirProducto();
-void venderProductos();
-void reabastecerStock();
+void buscarProducto(int opcionSucursal);
+void venderProductos(int opcionProd, int opcionSucursal);
+void reabastecerStock(int opcionProd, int opcionSucursal);
 void verVentasGanancias();
+
+//FUNCIONES
+int menuTienda();
+int elegirSucursal();
+int elegirProducto(int opcionSucursal);
 int menuIncial();
-void seteoMatriz();
-void registro();
+
+/////////////////////////////////////////// FUNCIÓN PRINCIPAL CON EL FLUJO //////////////////////
 
 int main(){
+    //Declarar variables usadas para parametros.
+    int opcionSucursalMain;
+    int opcionAdministrarNegocio;
+    int producto;
+    int opcionInicialMain;
+
+
     opcionInicialMain = menuInicial();
     seteoMatriz(opcionInicialMain);
+
     do{
         opcion = menuTienda();
         switch(opcion){
@@ -137,11 +151,9 @@ int main(){
                     }
                 }while(opcionAdministrarNegocio!=4);
                 
-                
-                
-
                 break;
             case 6:
+                printf("Saliendo del programa...\n");
                 break;
         }
     }while(opcion!=6);

@@ -1,23 +1,41 @@
 #include <stdio.h>
 #include "funciones.h"
+
 int opcion=0;
 int opcionSucursal = 0;
 int opcionProd =0;
 int opcionAdmin= 0;
 int opcionInicial=0;
+int confirmacionManual=0;
 
 
 int menuInicial(){
-    printf("\n======== ORBSTORE =======\n");
-    printf("1. Usar valores de inventario ya establecidos.\n");
-    printf("2. Ingresar datos de stock y precios manualmente.\n");
-    printf("----------------------\n");
-    printf("Ingrese una opcion: ");
+    do{
+        printf("\n======== ORBSTORE =======\n");
+        printf("1. Usar valores de inventario ya establecidos.\n");
+        printf("2. Ingresar datos de stock y precios manualmente.\n");
+        printf("----------------------\n");
+        printf("Ingrese una opcion: ");
 
-    while(scanf("%d", &opcionInicial) != 1 || opcionInicial < 1 || opcionInicial > 2){
-        while(getchar() != '\n');
-        printf("[ERROR]: Ingrese un numero entre 1 y 2\n");
-    }
+        while(scanf("%d", &opcionInicial) != 1 || opcionInicial < 1 || opcionInicial > 2){
+            while(getchar() != '\n');
+            printf("[ERROR]: Ingrese un numero entre 1 y 2: ");
+        }
+
+        if(opcionInicial == 2){
+            printf("Esta seguro de que desea registrar los 30 productos manualmente?\n ");
+            printf("1. Si / 2. No || Escoja: ");
+            while(scanf("%d", &confirmacionManual) != 1 || confirmacionManual < 1 || confirmacionManual > 2){
+                while(getchar() != '\n');
+                printf("[ERROR]: Ingrese un numero entre 1 y 2:");
+            }
+        } else {
+            break;
+        }
+        
+
+    }while(confirmacionManual != 1); 
+
     return opcionInicial;
 }
 
