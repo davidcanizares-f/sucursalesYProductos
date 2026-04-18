@@ -14,8 +14,8 @@ float inventario=0;
 float patrimonioXSucursal[3]={0};
 float mayor = 0;
 float menor = 0;
-float numeroVentasXSucursal=0;
-float gananciaVentasXSucursal=0;
+float numeroVentasXSucursal[3]={0};
+float gananciaVentasXSucursal[3]={0};
 float numeroVentasTotales=0;
 float gananciaVentasTotales=0;
 float productoMasCaro=0;
@@ -261,16 +261,18 @@ void verVentasGanancias(){
             printf("-- %s:\n ", nombresProds[j]);
             printf("Stock vendido: %.0f\n", ventas[i][j][0]);
             printf("Ganancia obtenida: $%.2f\n", ventas[i][j][1]);
-            numeroVentasXSucursal+=ventas[i][j][0];
-            gananciaVentasXSucursal+=ventas[i][j][1];
+            numeroVentasXSucursal[i]+=ventas[i][j][0];
+            gananciaVentasXSucursal[i]+=ventas[i][j][1];
         }
-        printf("\nNumero de productos vendidos de la sucursal: %.0f\n", numeroVentasXSucursal);
-        printf("\nGanancia obtenida de la sucursal: $%.2f\n", gananciaVentasXSucursal);
-        numeroVentasTotales+=numeroVentasXSucursal;
-        gananciaVentasTotales+=gananciaVentasXSucursal;
-    }    
-    printf("\nNúmero de productos vendidos en total: %.0f\n", numeroVentasTotales);
-    printf("\nGanancia total obtenida: $%.2f\n", gananciaVentasTotales);
+        printf("\nNumero de productos vendidos de la sucursal: %.0f\n", numeroVentasXSucursal[i]);
+        printf("Ganancia obtenida de la sucursal: $%.2f\n", gananciaVentasXSucursal[i]);
+        numeroVentasTotales+=numeroVentasXSucursal[i];
+        gananciaVentasTotales+=gananciaVentasXSucursal[i];
+        printf("\n");
+    } 
+    printf("\n------------------------------------------------\n");   
+    printf("Numero de productos vendidos en total (TODAS LAS SUCURSALES): %.0f\n", numeroVentasTotales);
+    printf("Ganancia total obtenida: $%.2f\n", gananciaVentasTotales);
 }
 
 

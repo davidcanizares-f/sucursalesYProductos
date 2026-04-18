@@ -40,7 +40,7 @@ int menuInicial(){
 }
 
 int menuTienda(){
-    printf("=============== MENU ==============\n");
+    printf("\n=============== MENU ==============\n");
     printf("1. Calcular el precio total del inventario por sucursal.\n");
     printf("2. Encontrar el producto mas caro y el mas barato de cada sucursal.\n");
     printf("3. Calcular el precio promedio de todos los productos por sucursal\n");
