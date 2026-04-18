@@ -254,6 +254,10 @@ void reabastecerStock(int opcionProd, int opcionSucursal){
 }
 
 void verVentasGanancias(){
+    float numeroVentasXSucursal[3]={0};
+    float gananciaVentasXSucursal[3]={0};
+    numeroVentasTotales=0;
+    gananciaVentasTotales=0;
     printf("\n========== VENTAS Y GANANCIAS =========\n");
     for(i=0; i<sucursales; i++){
         printf(">>>>> %s <<<<<\n", nombresSucursal[i]);
