@@ -69,6 +69,7 @@ int i, j, k;
 int opcionSucursalMain;
 int opcionAdministrarNegocio;
 int producto;
+float ventas[sucursales][prods][atributos];
 
 
 void registroTemporal();
