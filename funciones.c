@@ -16,9 +16,11 @@ int menuTienda(){
     printf("6. Salir\n");
     printf("---------------------\n");
     printf("Seleccione una opcion: ");
-    scanf("%d", &opcion);
-    return opcion;
 
+    while(scanf("%d", &opcion) != 1 || opcion < 1 || opcion > 6){
+        while(getchar() != '\n');
+        printf("[ERROR]: Ingrese una opcion valida: ");
+    }
 }
 
 
@@ -31,10 +33,9 @@ int elegirSucursal(){
     printf("-----------------\n");
     printf("Elija una opcion: ");
     
-    while(scanf("%d", &opcionSucursal) != 1){
-        printf("[ERROR]: Vuelva a seleccionar una opcion: \n");
-        scanf("%d", &opcionSucursal);
+    while(scanf("%d", &opcionSucursal) != 1 || opcionSucursal < 1 || opcionSucursal > 3){
         while(getchar() != '\n');
+        printf("[ERROR]: Ingrese 1, 2 o 3: ");
     }
     
     return opcionSucursal;
@@ -48,10 +49,9 @@ int elegirProducto(int opcionSucursal){
     printf("-----------\n");
     printf("Escoja una opcion: ");
     
-    while(scanf("%d", &opcionProd) != 1){
-        printf("[ERROR]: Vuelva a seleccionar una opcion: \n");
-        scanf("%d", &opcionProd);
+    while(scanf("%d", &opcionProd) != 1 || opcionProd < 1 || opcionProd > prods){
         while(getchar() != '\n');
+        printf("[ERROR]: Ingrese un numero entre 1 y %d: ", prods);
     }
 
     return opcionProd;
@@ -67,16 +67,10 @@ int administrarNegocio(){
     printf("4. Salir del panel de administrador.\n");
     printf("---------------\n");
     printf("Elija una opcion: ");
-    while(scanf("%d", &opcionAdmin) != 1){
-        printf("[ERROR]: Vuelva a seleccionar una opcion: \n");
-        scanf("%d", &opcionAdmin);
+    while(scanf("%d", &opcionAdmin) != 1 || opcionAdmin < 1 || opcionAdmin > 4){
         while(getchar() != '\n');
+        printf("[ERROR]: Ingrese una opcion valida: ");
     }
     return opcionAdmin;
 
 }
-
-
-
-
-

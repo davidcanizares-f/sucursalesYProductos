@@ -69,9 +69,11 @@ int i, j, k;
 int opcionSucursalMain;
 int opcionAdministrarNegocio;
 int producto;
+int opcionInicialMain;
+float ventas[sucursales][prods][atributos];
 
 
-void registroTemporal();
+void mostrarMatrizEstablecida();
 int menuTienda();
 void valorInventarioSucursal();
 void prodMasCaro();
@@ -82,10 +84,13 @@ int elegirProducto();
 void venderProductos();
 void reabastecerStock();
 void verVentasGanancias();
+int menuIncial();
+void seteoMatriz();
+void registro();
 
 int main(){
-    
-    registroTemporal();
+    opcionInicialMain = menuInicial();
+    seteoMatriz(opcionInicialMain);
     do{
         opcion = menuTienda();
         switch(opcion){

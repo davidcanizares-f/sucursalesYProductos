@@ -13,8 +13,3 @@ int menuTienda();
 int elegirSucursal();
 int elegirProducto();
 int administrarNegocio();
-
-
-
-
-

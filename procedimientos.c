@@ -17,14 +17,44 @@ bool encontrado;
 int prodsVender = 0;
 int stock;
 int prodsReabastecer = 0;
-int ventas[3][10];
+float numeroVentasXSucursal=0;
+float gananciaVentasXSucursal=0;
+float numeroVentasTotales=0;
+float gananciaVentasTotales=0;
+int opcionInicial=0;
 
 
 
+int menuInicial(){
+    printf("\n======== ORBSTORE =======\n");
+    printf("1. Usar valores de inventario ya establecidos.\n");
+    printf("2. Ingresar datos de stock y precios manualmente.\n");
+    printf("----------------------\n");
+    printf("Ingrese una opcion: ");
+
+    while(scanf("%d", &opcionInicial) != 1 || opcionInicial < 1 || opcionInicial > 2){
+        while(getchar() != '\n');
+        printf("[ERROR]: Ingrese un numero entre 1 y 2\n");
+    }
+    return opcionInicial;
+}
+
+void seteoMatriz(int opcionInicial){
+    switch(opcionInicial){
+        case 1:
+            printf("Puede continuar!\n");
+            printf("========== VALORES ESTABLECIDOS ========\n");
+            mostrarMatrizEstablecida();
+            break;
+        case 2:
+            registro();
+            break;
+    }
+}
 
 
 
-void registroTemporal(){
+void mostrarMatrizEstablecida(){
     
     for(int i=0; i<sucursales; i++){
             printf(">>>> Sucursal: %d || %s \n", i+1, nombresSucursal[i]);
@@ -166,21 +196,35 @@ void venderProductos(int opcionProd, int opcionSucursal){
     printf("\n========= VENDER PRODUCTOS ==========\n");
     stock = matriz[opcionSucursal-1][opcionProd-1][0];
     printf("Stock actual: %d\n", stock);
-    printf("Cantidad a vender: ");
-    scanf("%d", &prodsVender);
+
+    do { //Validacion para que el usuario no ingrese 0 ni valores negativos
+        printf("Cantidad a vender: ");
+        while(scanf("%d", &prodsVender) != 1){ while(getchar() != '\n'); }
+            if(prodsVender <= 0){
+                printf("[ERROR]: Debe ser un numero positivo.\n");
+            }else if(prodsVender > stock){
+                printf("[ERROR]: No hay suficiente stock (disponible: %d).\n", stock);}
+    } while(prodsVender <= 0 || prodsVender > stock);
+
     stock -= prodsVender;
     matriz[opcionSucursal-1][opcionProd-1][0] = stock;
+    ventas[opcionSucursal-1][opcionProd-1][0]+=prodsVender;
+    ventas[opcionSucursal-1][opcionProd-1][1]+=(prodsVender*matriz[opcionSucursal-1][opcionProd-1][1]);
     printf("%d UNIDADES VENDIDAS DE %s\n", prodsVender, nombresProds[opcionProd-1]);
     printf("Stock actual: %d\n", stock);
-    ventas[opcionSucursal-1][opcionProd-1] += prodsVender;
 }
 
 void reabastecerStock(int opcionProd, int opcionSucursal){
     printf("\n========= REABASTECER STOCK ==========\n");
     stock = matriz[opcionSucursal-1][opcionProd-1][0];
     printf("Stock actual: %d\n", stock);
-    printf("Cantidad a reabastecer: ");
-    scanf("%d", &prodsReabastecer);
+    do {
+        printf("Cantidad a reabastecer: ");
+        while(scanf("%d", &prodsReabastecer) != 1){ while(getchar() != '\n'); }
+        if(prodsReabastecer < 0){
+            printf("[ERROR]: Debe ser un numero positivo.\n");}
+    } while(prodsReabastecer < 0);
+
     stock += prodsReabastecer;
     matriz[opcionSucursal-1][opcionProd-1][0] = stock;
     printf("%d UNIDADES REABASTECIDAS DE %s\n", prodsReabastecer, nombresProds[opcionProd-1]);
@@ -192,30 +236,23 @@ void verVentasGanancias(){
     for(i=0; i<sucursales; i++){
         printf(">>>>> %s <<<<<\n", nombresSucursal[i]);
         for(j=0; j<prods; j++){
-            printf("-- %s: ", nombresProds[j]);
-            printf("%d\n", ventas[i][j]);
-            
+            printf("-- %s:\n ", nombresProds[j]);
+            printf("Stock vendido: %.0f\n", ventas[i][j][0]);
+            printf("Ganancia obtenida: $%.2f\n", ventas[i][j][1]);
+            numeroVentasXSucursal+=ventas[i][j][0];
+            gananciaVentasXSucursal+=ventas[i][j][1];
         }
+        printf("\nNumero de productos vendidos de la sucursal: %.0f\n", numeroVentasXSucursal);
+        printf("\nGanancia obtenida de la sucursal: $%.2f\n", gananciaVentasXSucursal);
+        numeroVentasTotales+=numeroVentasXSucursal;
+        gananciaVentasTotales+=gananciaVentasXSucursal;
     }    
-
+    printf("\nNúmero de productos vendidos en total: %.0f\n", numeroVentasTotales);
+    printf("\nGanancia total obtenida: $%.2f\n", gananciaVentasTotales);
 }
 
 
-
-
-
-
-
-
-
-
-
-
-/*void registro()
-{
-    float matriz[sucursales][prods][atributos];
-    char nombresProds[10][30]={"Pan", "Six", "Seven", "Vino", "Cris", "Epstein", "Diddy", "Deivid", "Tensor", "Orbey"};
-    char nombresSucursal[3][40]={"Montufar", "Montaditos Sandwich", "Cafe Rojo"};
+void registro(){
 
     for(int i=0; i<3; i++){
         printf(">>>> Sucursal: %d || %s \n", i+1, nombresSucursal[i]);
@@ -243,7 +280,7 @@ void verVentasGanancias(){
 
 
 
-}*/
+}
 
     /*for(int i=0; i<3; i++){
             printf(">>>> Sucursal: %d\n", i+1);
